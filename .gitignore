@@ -1,0 +1,32 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# Personal data - keep your real resume private!
+data.personal.json
+data.real.json
+*_personal.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local server files
+__pycache__/
+*.pyc

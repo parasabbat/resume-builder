@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume - Paras Abbat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button class="print-btn no-print" onclick="window.print()">🖨️ Print / Save PDF</button>
+  
+  <div class="resume-container" id="resume">
+    <div class="loading">Loading resume data...</div>
+  </div>
+
+  <script>
+    // Load and render resume from JSON
+    async function loadResume() {
+      try {
+        const response = await fetch('data.json');
+        const data = await response.json();
+        renderResume(data);
+      } catch (error) {
+        console.error('Error loading resume data:', error);
+        document.getElementById('resume').innerHTML = `
+          <div class="loading">Error loading resume data. Please ensure data.json exists.</div>
+        `;
+      }
+    }
+
+    function renderResume(data) {
+      const container = document.getElementById('resume');
+      
+      // Build HTML
+      let html = `
+        <!-- Header -->
+        <header class="header">
+          <h1 class="name">${data.personalInfo.name}</h1>
+          <p class="designation">${data.personalInfo.title}</p>
+          <div class="contact-info">
+            <p>Phone: ${data.personalInfo.phone}</p>
+            <p>Email: ${data.personalInfo.email}</p>
+            <p>Location: ${data.personalInfo.location}</p>
+            ${data.personalInfo.linkedin ? `<p>LinkedIn: ${data.personalInfo.linkedin}</p>` : ''}
+          </div>
+        </header>
+
+        <!-- Professional Summary -->
+        <section class="section summary">
+          <h2 class="section-title">PROFESSIONAL SUMMARY</h2>
+          <p>${data.profileSummary}</p>
+        </section>
+
+        <!-- Technical Skills -->
+        <section class="section skills">
+          <h2 class="section-title">SKILLS</h2>
+          <p class="skills-text">${data.skills.join(', ')}</p>
+        </section>
+
+        <!-- Professional Experience -->
+        <section class="section work-experience">
+          <h2 class="section-title">WORK EXPERIENCE</h2>
+          ${data.workExperience.map((job, index) => `
+            <article class="work-item">
+              <p class="work-header-text"><strong>${job.company}</strong> – ${job.title}</p>
+              <p class="work-period-text">${job.period}</p>
+              ${job.subPeriods && job.subPeriods.length > 0 ? `
+                <p class="work-sub-periods-text">
+                  ${job.subPeriods.map(sp => `${sp.label}: ${sp.period}`).join(' | ')}
+                </p>
+              ` : ''}
+              ${job.responsibilities && job.responsibilities.length > 0 ? `
+                <ul class="work-responsibilities">
+                  ${job.responsibilities.map(resp => `<li>${resp}</li>`).join('')}
+                </ul>
+              ` : ''}
+              ${job.achievements && job.achievements.length > 0 ? `
+                <p class="achievements-label"><strong>Key Achievements:</strong></p>
+                <ul class="work-achievements-list">
+                  ${job.achievements.map(ach => `<li>${ach}</li>`).join('')}
+                </ul>
+              ` : ''}
+              ${job.techStack ? `<p class="tech-stack"><strong>Tech Stack:</strong> ${job.techStack}</p>` : ''}
+            </article>
+            ${index < data.workExperience.length - 1 ? '<div class="job-gap"></div>' : ''}
+          `).join('')}
+        </section>
+
+        <!-- Education -->
+        <section class="section education">
+          <h2 class="section-title">EDUCATION</h2>
+          ${data.education.map(edu => `
+            <article class="education-item">
+              <p class="education-degree"><strong>${edu.degree}</strong> – ${edu.field}</p>
+              <p class="education-institution">${edu.institution}</p>
+              <p class="education-year">${edu.year}${edu.marks ? ` | Marks: ${edu.marks}` : ''}</p>
+            </article>
+          `).join('')}
+        </section>
+
+        <!-- Additional Information -->
+        <section class="section additional">
+          <h2 class="section-title">ADDITIONAL INFORMATION</h2>
+          <p class="languages">
+            <strong>Languages:</strong> ${data.additionalInfo.languages.join(', ')}
+          </p>
+        </section>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    // Load resume on page load
+    document.addEventListener('DOMContentLoaded', loadResume);
+  </script>
+</body>
+</html>

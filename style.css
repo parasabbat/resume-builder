@@ -1,0 +1,239 @@
+/* =========================
+   Paras Abbat – Resume CSS
+   ========================= */
+
+:root {
+  --bg: #ffffff;
+  --text: #222B38;
+  --muted-text: #596375;
+  --hairline: #E5E8EE;
+  --chip-bg: #F3F5F8;
+  --chip-border: #D8DDE6;
+  --pill-bg: #eef1f6;
+  --pill-text: #394353;
+  --accent: #7B8AA5;
+
+  --h1-size: 32px;
+  --h2-size: 16px;
+  --h3-size: 14px;
+
+  --base: 13.5px;
+  --line: 1.55;
+
+  --page-width: 900px;
+  --section-gap: 20px;
+  --block-gap: 14px;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  padding: 0; margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+body {
+  font: 400 var(--base) / var(--line), 
+        'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.resume-container * {
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+.resume-container {
+  width: 100%;
+  max-width: var(--page-width);
+  margin: 28px auto 80px;
+  padding: 0 18px;
+}
+
+.print-btn {
+  position: sticky;
+  top: 12px;
+  left: 12px;
+  margin: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--chip-border);
+  background: #fff;
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+}
+.print-btn:hover { background: #fafbfc; }
+
+.header {
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+}
+
+.header .name {
+  font-size: var(--h1-size);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  margin: 0 0 4px;
+  color: var(--text);
+}
+
+.header .designation {
+  font-size: var(--h2-size);
+  color: var(--muted-text);
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.header .contact-info {
+  color: var(--muted-text);
+  font-size: 12.5px;
+}
+
+.header .contact-info p {
+  margin: 2px 0;
+}
+
+.section { margin-top: var(--section-gap); }
+.section-title {
+  font-size: var(--h3-size);
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 10px;
+  background: linear-gradient(#e4e8ed, #dfe3ea);
+  border: 1px solid var(--chip-border);
+  padding: 8px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ATS-friendly skills text */
+.skills-text {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.summary p { margin: 0; color: var(--text); text-align: justify; }
+
+.work-item {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.work-item:last-child { border-bottom: 0; }
+
+/* Work header with background */
+.work-header-text {
+  margin: 0;
+  padding: 6px 10px;
+  font-size: 14px;
+  color: var(--text);
+  background: #F3F5F8;
+  border: 1px solid #D8DDE6;
+  border-radius: 8px;
+}
+
+.work-period-text {
+  margin: 4px 0 6px;
+  padding-left: 10px;
+  color: var(--accent);
+  font-size: 12.5px;
+}
+
+.work-sub-periods-text {
+  margin: 0 0 8px;
+  color: var(--muted-text);
+  font-size: 12.5px;
+}
+
+/* Job gap for ATS clarity */
+.job-gap {
+  height: 8px;
+}
+
+.work-sub-periods { margin-top: 6px; color: var(--muted-text); font-size: 12.8px; }
+.work-sub-periods strong { color: var(--text); font-weight: 600; }
+
+.work-responsibilities { margin: 10px 0 0 0; padding-left: 18px; }
+.work-responsibilities li { margin: 4px 0; }
+
+/* Key Achievements */
+.achievements-label {
+  margin: 12px 0 4px;
+  font-size: 13px;
+}
+.work-achievements-list { margin: 4px 0 0 0; padding-left: 18px; }
+.work-achievements-list li { margin: 4px 0; color: var(--text); }
+
+.work-additional { margin: 10px 0 0; color: var(--muted-text); }
+.tech-stack { margin: 8px 0 0; }
+.tech-stack strong { font-weight: 700; }
+
+.education-item {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.education-item:last-child { border-bottom: 0; }
+
+.education-degree { margin: 0 0 3px; font-size: 14px; color: var(--text); }
+.education-institution { margin: 0 0 3px; color: var(--muted-text); }
+.education-year { margin: 0; color: var(--accent); font-size: 12.5px; }
+
+.additional .languages { margin: 0; }
+
+.loading {
+  color: var(--muted-text);
+  background: #fbfcfe;
+  border: 1px dashed var(--chip-border);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  :root { --h1-size: 26px; --page-width: 100%; --base: 13px; }
+  .resume-container { margin: 16px auto 60px; }
+  .work-header, .education-item { grid-template-columns: 1fr; }
+  .work-period, .education-year { margin-top: 4px; }
+}
+
+@page { size: A4; margin: 14mm 12mm; }
+
+@media print {
+  :root {
+    --base: 11pt;
+    --h1-size: 18pt;
+    --h2-size: 10pt;
+    --h3-size: 9pt;
+    --section-gap: 10pt;
+    --block-gap: 8pt;
+  }
+  body { color: #111; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .no-print { display: none !important; }
+  .resume-container { max-width: unset; margin: 0; padding: 0; }
+  .section-title { background: #EDEFF3 !important; border-color: #D0D6E1 !important; }
+  a, a:visited { color: inherit; text-decoration: none; }
+  
+  /* ATS print optimizations */
+  .job-gap { height: 6pt; }
+  .work-item { padding: 8pt 0; }
+  .education-item { padding: 6pt 0; }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0E1116;
+    --text: #E6EAF2;
+    --muted-text: #AFB7C6;
+    --hairline: #242A35;
+    --chip-bg: #1A202C;
+    --chip-border: #2C3442;
+    --pill-bg: #1b2331;
+    --pill-text: #D8DFEC;
+    --accent: #9FB0CE;
+  }
+  .print-btn { background: #141922; color: var(--text); border-color: var(--chip-border); }
+}

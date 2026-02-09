@@ -1,0 +1,87 @@
+{
+    "personalInfo": {
+        "name": "John Doe",
+        "title": "Software Architect",
+        "phone": "+1-555-123-4567",
+        "email": "john.doe@example.com",
+        "location": "San Francisco, CA",
+        "experience": "10+ Years",
+        "linkedin": "https://www.linkedin.com/in/johndoe/"
+    },
+    "profileSummary": "10+ years of experience building scalable, cloud-native, and high-performance solutions using modern technologies. Strong background in software architecture with hands-on expertise in microservices, CI/CD automation, databases, and secure system design. Proven experience delivering enterprise solutions and optimizing large-scale applications.",
+    "skills": [
+        "C#",
+        ".NET Core",
+        "Python",
+        "Angular",
+        "Node.js",
+        "TypeScript",
+        "SQL Server",
+        "Redis",
+        "NoSQL",
+        "Microsoft Azure",
+        "Docker",
+        "Kubernetes",
+        "Git",
+        "Scrum",
+        "DevOps",
+        "Microservices",
+        "REST API"
+    ],
+    "workExperience": [
+        {
+            "title": "Software Architect",
+            "company": "Tech Company A",
+            "period": "Jan 2020 - Present",
+            "responsibilities": [
+                "Led full-stack engineering across multiple technology stacks.",
+                "Developed and maintained microservices for enterprise applications.",
+                "Built 10+ automation tools improving team productivity by 40%.",
+                "Implemented CI/CD pipelines for continuous delivery."
+            ],
+            "achievements": [
+                "Scaled cloud platform to support 500K+ daily active users.",
+                "Reduced deployment time by 60% through automation.",
+                "Introduced monitoring tools improving system reliability by 35%."
+            ],
+            "techStack": "Angular, .NET Core, Python, Kubernetes, GitHub Actions"
+        },
+        {
+            "title": "Senior Software Engineer",
+            "company": "Tech Company B",
+            "period": "Jun 2016 - Dec 2019",
+            "responsibilities": [
+                "Developed centralized authentication modules across applications.",
+                "Collaborated with cross-functional teams to deliver features.",
+                "Onboarded 5+ applications onto unified platforms."
+            ],
+            "techStack": "Angular, .NET Core, SQL Server"
+        },
+        {
+            "title": "Software Engineer",
+            "company": "Tech Company C",
+            "period": "Jan 2014 - May 2016",
+            "responsibilities": [
+                "Developed web and mobile applications.",
+                "Built backend services to support frontend modules.",
+                "Conducted testing for reliability and performance."
+            ],
+            "techStack": ".NET, SQL Server, jQuery"
+        }
+    ],
+    "education": [
+        {
+            "year": "2013",
+            "degree": "B.Tech/B.E.",
+            "field": "Computer Science and Engineering",
+            "institution": "University Name",
+            "marks": "75%"
+        }
+    ],
+    "additionalInfo": {
+        "languages": [
+            "English",
+            "Spanish"
+        ]
+    }
+}
