@@ -34,15 +34,15 @@
             "company": "Tech Company A",
             "period": "Jan 2020 - Present",
             "responsibilities": [
-                "Led full-stack engineering across multiple technology stacks.",
-                "Developed and maintained microservices for enterprise applications.",
-                "Built 10+ automation tools improving team productivity by 40%.",
-                "Implemented CI/CD pipelines for continuous delivery."
+                "Led full-stack engineering across multiple technology stacks",
+                "Developed and maintained microservices for enterprise applications",
+                "Built 10+ automation tools improving team productivity by 40%",
+                "Implemented CI/CD pipelines for continuous delivery"
             ],
             "achievements": [
-                "Scaled cloud platform to support 500K+ daily active users.",
-                "Reduced deployment time by 60% through automation.",
-                "Introduced monitoring tools improving system reliability by 35%."
+                "Scaled cloud platform to support 500K+ daily active users",
+                "Reduced deployment time by 60% through automation",
+                "Introduced monitoring tools improving system reliability by 35%"
             ],
             "techStack": "Angular, .NET Core, Python, Kubernetes, GitHub Actions"
         },
@@ -51,9 +51,9 @@
             "company": "Tech Company B",
             "period": "Jun 2016 - Dec 2019",
             "responsibilities": [
-                "Developed centralized authentication modules across applications.",
-                "Collaborated with cross-functional teams to deliver features.",
-                "Onboarded 5+ applications onto unified platforms."
+                "Developed centralized authentication modules across applications",
+                "Collaborated with cross-functional teams to deliver features",
+                "Onboarded 5+ applications onto unified platforms"
             ],
             "techStack": "Angular, .NET Core, SQL Server"
         },
@@ -62,9 +62,9 @@
             "company": "Tech Company C",
             "period": "Jan 2014 - May 2016",
             "responsibilities": [
-                "Developed web and mobile applications.",
-                "Built backend services to support frontend modules.",
-                "Conducted testing for reliability and performance."
+                "Developed web and mobile applications",
+                "Built backend services to support frontend modules",
+                "Conducted testing for reliability and performance"
             ],
             "techStack": ".NET, SQL Server, jQuery"
         }
@@ -76,6 +76,33 @@
             "field": "Computer Science and Engineering",
             "institution": "University Name",
             "marks": "75%"
+        }
+    ],
+    "certifications": [
+        "AWS Certified Solutions Architect",
+        "Microsoft Azure Developer Associate",
+        "Certified Kubernetes Administrator"
+    ],
+    "projects": [
+        {
+            "name": "Cloud Migration Platform",
+            "duration": "12 Months",
+            "description": [
+                "Led migration of 50+ legacy applications to cloud-native architecture",
+                "Reduced infrastructure costs by 40% through optimization",
+                "Implemented automated deployment pipelines for 20+ microservices"
+            ],
+            "tools": "Azure, Kubernetes, Terraform, GitHub Actions"
+        },
+        {
+            "name": "Enterprise API Gateway",
+            "duration": "8 Months",
+            "description": [
+                "Designed centralized API gateway handling 1M+ daily requests",
+                "Implemented OAuth 2.0 and JWT authentication",
+                "Reduced API response time by 30% through caching strategies"
+            ],
+            "tools": ".NET Core, Redis, Docker, SQL Server"
         }
     ],
     "additionalInfo": {

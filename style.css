@@ -184,6 +184,23 @@ body {
 
 .additional .languages { margin: 0; }
 
+/* Skills categories */
+.skills-category { margin: 6px 0; }
+.skills-category strong { font-weight: 600; }
+.skills-text { margin: 0; }
+
+/* Certifications */
+.certifications-text { margin: 0; }
+
+/* Projects */
+.project-item { padding: 10px 0; border-bottom: 1px solid var(--hairline); }
+.project-item:last-child { border-bottom: 0; }
+.project-header { margin: 0; }
+.project-description { margin: 8px 0 0 0; padding-left: 18px; }
+.project-description li { margin: 4px 0; }
+.project-tools { margin: 8px 0 0; color: var(--muted-text); font-size: 12.5px; }
+.project-tools strong { font-weight: 600; color: var(--text); }
+
 .loading {
   color: var(--muted-text);
   background: #fbfcfe;

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resume - Paras Abbat</title>
+  <title>Resume</title>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -55,7 +55,12 @@
         <!-- Technical Skills -->
         <section class="section skills">
           <h2 class="section-title">SKILLS</h2>
-          <p class="skills-text">${data.skills.join(', ')}</p>
+          ${typeof data.skills === 'object' && !Array.isArray(data.skills) ? `
+            ${data.skills.businessAnalysis ? `<p class="skills-category"><strong>Business Analysis:</strong> ${data.skills.businessAnalysis.join(', ')}</p>` : ''}
+            ${data.skills.agileScrum ? `<p class="skills-category"><strong>Agile/Scrum:</strong> ${data.skills.agileScrum.join(', ')}</p>` : ''}
+            ${data.skills.tools ? `<p class="skills-category"><strong>Tools:</strong> ${data.skills.tools.join(', ')}</p>` : ''}
+            ${data.skills.core ? `<p class="skills-category"><strong>Core Competencies:</strong> ${data.skills.core.join(', ')}</p>` : ''}
+          ` : `<p class="skills-text">${Array.isArray(data.skills) ? data.skills.join(', ') : ''}</p>`}
         </section>
 
         <!-- Professional Experience -->
@@ -98,6 +103,32 @@
             </article>
           `).join('')}
         </section>
+
+        <!-- Certifications -->
+        ${data.certifications && data.certifications.length > 0 ? `
+        <section class="section certifications">
+          <h2 class="section-title">CERTIFICATIONS</h2>
+          <p class="certifications-text">${data.certifications.join(', ')}</p>
+        </section>
+        ` : ''}
+
+        <!-- Projects -->
+        ${data.projects && data.projects.length > 0 ? `
+        <section class="section projects">
+          <h2 class="section-title">PROJECTS</h2>
+          ${data.projects.map(project => `
+            <article class="project-item">
+              <p class="project-header"><strong>${project.name}</strong>${project.duration ? ` – ${project.duration}` : ''}</p>
+              ${project.description && project.description.length > 0 ? `
+                <ul class="project-description">
+                  ${project.description.map(desc => `<li>${desc}</li>`).join('')}
+                </ul>
+              ` : ''}
+              ${project.tools ? `<p class="project-tools"><strong>Tools:</strong> ${project.tools}</p>` : ''}
+            </article>
+          `).join('')}
+        </section>
+        ` : ''}
 
         <!-- Additional Information -->
         <section class="section additional">
