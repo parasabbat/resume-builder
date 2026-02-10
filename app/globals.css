@@ -1,5 +1,5 @@
 /* =========================
-   Paras Abbat – Resume CSS
+   Resume CSS - Migrated from vanilla JS version
    ========================= */
 
 :root {
@@ -187,7 +187,6 @@ body {
 /* Skills categories */
 .skills-category { margin: 6px 0; }
 .skills-category strong { font-weight: 600; }
-.skills-text { margin: 0; }
 
 /* Certifications */
 .certifications-text { margin: 0; }
