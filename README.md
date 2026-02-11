@@ -1,89 +1,98 @@
-# Resume React App - Complete Project Summary
+# Resume Builder
 
-## Learning Journey Completed
+A fully local, privacy-first resume builder built with **Next.js 16**, **React 19**, and **TypeScript**. Create, edit, preview, and share professional resumes -- all without a server or database.
 
-You have successfully migrated your vanilla JavaScript resume to a modern React/Next.js application through 10 comprehensive lessons.
+> **Your data never leaves your browser.** No server, no database, no tracking.
+
+---
+
+## Features
+
+### Resume Management
+- **Create** multiple resumes with default sample data
+- **Edit** via a split-panel JSON builder (form left, live JSON preview right)
+- **Duplicate** any resume with one click
+- **Delete** with confirmation
+- **Import** resume from a `.json` file
+- **Export** resume as a `.json` file download
+
+### Preview & Print
+- **A4 paper preview** that matches print output exactly
+- **Print / Save PDF** with optimized print styles
+- Clean, professional layout with ATS-friendly formatting
+
+### Public Sharing
+- Share resumes via URL -- data is compressed and encoded directly in the link
+- No server involved; the recipient's browser decodes the resume from the URL
+- Copy Phone / Copy Email buttons on the shared view
+- Uses [lz-string](https://github.com/pieroxy/lz-string) for URL-safe compression
+
+### Template System
+- Extensible template registry (strategy pattern)
+- Currently ships with **Classic** template
+- Adding a new template = creating one component + registering it
+- Template selector on the preview page
+
+### Privacy & Trust
+- Dismissible privacy banner at the top
+- Trust indicator in navigation bar
+- Footer message on every page
+- No analytics, no cookies, no external requests
 
 ---
 
 ## Project Structure
 
 ```
-resume/
-├── app/
-│   ├── components/          # All React components (16 files)
-│   │   ├── AdditionalInfo.tsx
-│   │   ├── BulletList.tsx
-│   │   ├── Certifications.tsx
-│   │   ├── CopyToClipboard.tsx
-│   │   ├── DocumentTitle.tsx
-│   │   ├── Education.tsx
-│   │   ├── Header.tsx
-│   │   ├── KeyboardShortcuts.tsx
-│   │   ├── PrintButton.tsx
-│   │   ├── Projects.tsx
-│   │   ├── ScrollToTop.tsx
-│   │   ├── Section.tsx
-│   │   ├── SkillsFilter.tsx
-│   │   ├── ViewCounter.tsx
-│   │   ├── WorkExperience.tsx
-│   │   └── WorkItem.tsx
-│   ├── layout.tsx           # Root layout with metadata
-│   ├── page.tsx             # Main resume page
-│   └── globals.css          # Global styles
-├── data/
-│   └── data.json            # Resume data
-├── public/                  # Static assets
-├── package.json
-├── tsconfig.json
-└── next.config.ts
+app/
+  page.tsx                              -- Dashboard (resume list)
+  layout.tsx                            -- Root layout + nav + footer
+  globals.css                           -- Global styles + print styles
+  types/
+    resume.ts                           -- Shared TypeScript interfaces
+  context/
+    ResumeContext.tsx                    -- React Context for global state
+  utils/
+    storage.ts                          -- localStorage CRUD helpers
+    sharing.ts                          -- URL encode/decode for sharing
+  editor/
+    page.tsx                            -- Editor route (Suspense wrapper)
+    EditorContent.tsx                   -- Split-panel form + JSON preview
+  preview/
+    page.tsx                            -- Preview route (Suspense wrapper)
+    PreviewContent.tsx                  -- A4 paper preview
+  share/
+    page.tsx                            -- Public share route
+    ShareContent.tsx                    -- URL-decoded resume view
+  templates/
+    index.ts                            -- Template registry
+    classic/
+      ClassicTemplate.tsx               -- Classic resume template
+  components/
+    Header.tsx, Section.tsx, SkillsFilter.tsx, WorkExperience.tsx,
+    WorkItem.tsx, BulletList.tsx, Education.tsx, Certifications.tsx,
+    Projects.tsx, AdditionalInfo.tsx, Navigation.tsx, PrivacyBanner.tsx,
+    PrintButton.tsx, CopyToClipboard.tsx, DocumentTitle.tsx,
+    ScrollToTop.tsx, ViewCounter.tsx, KeyboardShortcuts.tsx
+data/
+  data.json                             -- Sample resume data
 ```
-
----
-
-## Features Implemented
-
-### Core Resume Features
-- Dynamic data loading from JSON
-- Professional header with contact info
-- Skills, work experience, education, projects
-- Certifications and additional info
-- Print-optimized CSS
-- Dark mode support
-- Responsive design (mobile-friendly)
-
-### Interactive Features
-- Print Button - Click to print or save as PDF
-- Copy to Clipboard - Copy phone/email with one click
-- Skills Display - Shows all your skills
-- Scroll to Top - Appears after scrolling 300px
-- View Counter - Tracks views in localStorage
-- Keyboard Shortcuts - Ctrl+P to print, Up arrow to scroll up
-- Document Title - Dynamic browser tab title
-
-### Technical Features
-- React Server Components
-- Client Components for interactivity
-- TypeScript for type safety
-- Component composition
-- Props and state management
-- Event handling
-- SEO optimization with metadata
-- Font optimization (Open Sans)
 
 ---
 
 ## Quick Start
 
-### Development Server
-
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
 ```
 
 Open http://localhost:3000
 
-### Build for Production
+### Production Build
 
 ```bash
 npm run build
@@ -92,252 +101,93 @@ npm start
 
 ---
 
-## Component Architecture
+## Pages & Routes
 
-### Data Flow
-```
-data.json → page.tsx (Server Component) → Components (Props)
-```
-
-### Component Types
-
-Server Components (No 'use client'):
-- page.tsx - Loads data from JSON
-
-Client Components ('use client'):
-- Interactive components using hooks and browser APIs
-- All 16 components in app/components/
-
-Composition Pattern:
-```
-page.tsx
-  └── Header
-  └── Section
-        └── SkillsFilter
-  └── Section
-        └── WorkExperience
-              └── WorkItem
-                    └── BulletList
-```
+| Route | Page | Description |
+|-------|------|-------------|
+| `/` | Dashboard | List all saved resumes with action buttons |
+| `/editor?id=...` | Editor | Split-panel JSON builder with auto-save |
+| `/preview?id=...` | Preview | A4 paper preview matching print output |
+| `/share?d=...&t=...` | Public Share | URL-decoded resume for sharing |
 
 ---
 
-## Lessons Learned (10-Lesson Curriculum)
+## Tech Stack
 
-### Lesson 1: JSX & Components
-- JSX syntax and rules
-- Creating functional components
-- Component naming conventions
-
-### Lesson 2: Props
-- Passing data to components
-- TypeScript interfaces for props
-- Props vs State
-- Children prop
-
-### Lesson 3: Lists & Keys
-- .map() for rendering arrays
-- Key prop importance
-- Nested maps
-
-### Lesson 4: Conditional Rendering
-- && operator
-- Ternary operator
-- Early return pattern
-- || for defaults
-
-### Lesson 5: Component Composition
-- Extracting reusable components
-- Building complex UIs from simple parts
-- Generic vs specific components
-
-### Lesson 6: useState Hook
-- State management
-- Event handlers
-- Re-rendering on state change
-- 'use client' directive
-
-### Lesson 7: useEffect Hook
-- Side effects
-- Dependency arrays
-- Cleanup functions
-- Multiple effects
-
-### Lesson 8: Event Handling
-- onClick, onChange, onSubmit, onKeyDown
-- Event objects
-- Controlled components
-- Async event handlers
-
-### Lesson 9: Styling in React
-- Inline styles
-- Global CSS
-- CSS Modules
-- Dynamic styling
-
-### Lesson 10: Next.js Specifics
-- Server vs Client Components
-- Metadata API
-- Font optimization
-- Static generation
-- Production build
+- **Next.js 16** -- App Router, file-based routing, Server/Client Components
+- **React 19** -- Hooks, Context API, Suspense
+- **TypeScript** -- Shared interfaces for type safety
+- **lz-string** -- URL-safe compression for public sharing
+- **localStorage** -- All data stored locally in the browser
 
 ---
 
-## Deployment Guide
+## How Public Sharing Works
 
-### Option 1: Vercel (Recommended)
+Since there is no backend, resume data is encoded directly into the URL:
 
-```bash
-# Install Vercel CLI
-npm i -g vercel
+1. **Sender** clicks "Public Share Link" in the editor
+2. `JSON.stringify(data)` converts the resume to a string
+3. `lz-string` compresses it into a URL-safe format
+4. URL is generated: `/share?d=<compressed>&t=classic`
+5. **Recipient** opens the URL
+6. The share page reads `?d=` from the URL
+7. `lz-string` decompresses it back to JSON
+8. The template renders the resume
 
-# Deploy
-vercel
-
-# Production
-vercel --prod
-```
-
-URL: https://your-project.vercel.app
+No server stores or processes the data at any point.
 
 ---
 
-### Option 2: Netlify
+## Adding a New Template
 
-1. Build: npm run build
-2. Deploy at netlify.com
-3. Drag and drop .next folder
+1. Create a folder: `app/templates/modern/`
+2. Create `ModernTemplate.tsx` that accepts `{ data: ResumeData }` as props
+3. Register it in `app/templates/index.ts` by adding to `TEMPLATES` and `TEMPLATE_OPTIONS`
 
----
-
-### Option 3: GitHub Pages (Static Export)
-
-Add to next.config.ts:
-```ts
-const nextConfig = {
-  output: 'export',
-};
-```
-
-Build: npm run build
-
-Deploy out folder to GitHub Pages
+No other code changes needed.
 
 ---
 
-## Customization Guide
+## Customization
 
-### Update Your Data
+### Update Sample Data
+Edit `data/data.json` with your information.
 
-Edit data/data.json:
-
-```json
-{
-  "personalInfo": {
-    "name": "Your Name",
-    "title": "Your Title",
-    "phone": "+1-XXX-XXX-XXXX",
-    "email": "you@example.com"
-  }
-}
-```
-
-### Modify Styling
-
-Edit app/globals.css:
+### Modify Styles
+Edit `app/globals.css` -- CSS custom properties control the theme:
 
 ```css
 :root {
   --bg: #ffffff;
   --text: #222B38;
+  --muted-text: #596375;
   --accent: #7B8AA5;
 }
 ```
 
-### Add New Sections
-
-1. Create component in app/components/
-2. Import in page.tsx
-3. Add to resume container
-
 ---
 
-## Future: Multiple Templates
+## Deployment
 
-Your architecture supports multiple templates:
+### Vercel (Recommended)
 
-```
-app/
-├── templates/
-│   ├── modern/
-│   ├── classic/
-│   └── creative/
-└── components/  # Shared by all templates
+```bash
+npm i -g vercel
+vercel --prod
 ```
 
----
+### Static Export
 
-## Troubleshooting
+Add to `next.config.ts`:
+```ts
+const nextConfig = { output: 'export' };
+```
 
-| Issue | Solution |
-|-------|----------|
-| Component not rendering | Check if it needs 'use client' directive |
-| Build errors | Run npm run build to see TypeScript errors |
-| Styles not applying | Check className spelling and globals.css import |
-| Data not loading | Verify data/data.json path and structure |
+Then `npm run build` and deploy the `out` folder.
 
 ---
 
-## Next Steps
+## License
 
-1. Personalize - Update data.json with your information
-2. Deploy - Get it live on Vercel/Netlify
-3. Share - Use for job applications
-4. Extend - Add more features:
-   - Download PDF
-   - Theme switcher
-   - Multiple languages
-   - Analytics
-   - Contact form with email
-
----
-
-## React Best Practices Applied
-
-- Component composition over inheritance
-- Props for data flow
-- Keys in lists
-- Conditional rendering patterns
-- Controlled components
-- Effect cleanup
-- TypeScript for type safety
-- Separation of concerns
-- Server/Client component split
-- Performance optimization
-
----
-
-## Performance Metrics
-
-Lighthouse Score Goals:
-- Performance: 95+
-- Accessibility: 100
-- Best Practices: 100
-- SEO: 100
-
-Bundle Size:
-- First Load JS: ~85 kB
-- Page Size: ~1.2 kB
-
----
-
-## Summary
-
-You now have:
-- Production-ready React/Next.js app
-- Clean, maintainable code
-- Modern development skills
-- Deployable portfolio piece
-
-Keep learning and building!
+MIT
