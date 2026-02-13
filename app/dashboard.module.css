@@ -1,0 +1,158 @@
+/* =========================================================
+   DASHBOARD PAGE STYLES
+   ========================================================= */
+
+/* REACT STANDARD: CSS Modules
+   - Each page/section has its own CSS Module
+   - Scoped to that component, no global conflicts
+   - Easier to maintain and organize
+   ========================================================= */
+
+/* Main page container */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* Header section - title and buttons */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.header > * {
+  flex-shrink: 0;
+}
+
+/* Page title */
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  color: #222b38;
+}
+
+/* Header action buttons (Create, Import) */
+.headerActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Button base styles - used for both primary and secondary */
+.button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+/* Primary button - blue, for main actions */
+.buttonPrimary {
+  background: #1a56db;
+  color: #fff;
+  border: none;
+}
+
+.buttonPrimary:hover {
+  background: #1e40af;
+  box-shadow: 0 2px 8px rgba(26, 86, 219, 0.2);
+}
+
+.buttonPrimary:active {
+  background: #1839a0;
+}
+
+/* Secondary button - outlined, for alternative actions */
+.buttonSecondary {
+  background: #fff;
+  color: #333;
+  border: 1px solid #d8dde6;
+}
+
+.buttonSecondary:hover {
+  background: #f9fafb;
+  border-color: #b0b8c9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.buttonSecondary:active {
+  background: #f3f4f6;
+}
+
+/* Empty state container */
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #596375;
+  border: 2px dashed #d8dde6;
+  border-radius: 12px;
+  background: #f9fafb;
+}
+
+/* Empty state title */
+.emptyStateTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: #222b38;
+}
+
+/* Empty state description */
+.emptyStateDescription {
+  font-size: 14px;
+  margin: 0 0 20px;
+  color: #596375;
+}
+
+/* Resume cards grid - responsive layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* Responsive on small screens */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headerActions {
+    width: 100%;
+  }
+
+  .headerActions .button {
+    flex: 1;
+  }
+}
+
+/* Loading state container */
+.loadingContainer {
+  padding: 40px;
+  text-align: center;
+  color: #596375;
+  font-size: 16px;
+}
+
+/* Footer section */
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 12px;
+  color: #9ca3af;
+}
