@@ -1,0 +1,152 @@
+/* =========================================================
+   PREVIEW TOOLBAR STYLES
+   ========================================================= */
+
+/* REACT CONCEPT: CSS Modules for Toolbar
+   - Component-scoped styling
+   - Maintainable button states
+   - Responsive design patterns
+   ========================================================= */
+
+/* Toolbar container - fixed at top */
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Left side - action buttons */
+.toolbarLeft {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Right side - template selector */
+.toolbarRight {
+  display: flex;
+  align-items: center;
+}
+
+/* Base button styles */
+.button {
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+/* Button hover states */
+.button:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* Primary button (Edit) */
+.buttonPrimary {
+  background: #3b82f6;
+  color: #fff;
+  border-color: #3b82f6;
+}
+
+.buttonPrimary:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Secondary button (Print) */
+.buttonSecondary {
+  background: #f3f4f6;
+  color: #374151;
+  border-color: #d1d5db;
+}
+
+.buttonSecondary:hover {
+  background: #e5e7eb;
+  border-color: #9ca3af;
+}
+
+/* Template selector */
+.templateSelector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.templateSelector select {
+  padding: 6px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  min-width: 120px;
+}
+
+.templateSelector select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Icon styles */
+.icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+}
+
+/* Responsive design - stack buttons on mobile */
+@media (max-width: 768px) {
+  .toolbar {
+    padding: 8px 16px;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .toolbarLeft {
+    justify-content: center;
+  }
+
+  .toolbarRight {
+    justify-content: center;
+  }
+
+  .button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .templateSelector {
+    justify-content: center;
+  }
+}
+
+/* Print styles - hide toolbar when printing */
+@media print {
+  .toolbar {
+    display: none;
+  }
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import type { ResumeData } from '../types/resume';
 import { getResumeById } from '../utils/storage';
@@ -9,6 +9,8 @@ import { getTemplate, TEMPLATE_OPTIONS } from '../templates';
 import defaultData from '../../data/data.json';
 import PrintButton from '../components/PrintButton';
 import DocumentTitle from '../components/DocumentTitle';
+import styles from './preview.module.css';
+import toolbarStyles from './toolbar.module.css';
 
 export default function PreviewContent() {
   const searchParams = useSearchParams();
@@ -29,8 +31,6 @@ export default function PreviewContent() {
     }
   }, [resumeId]);
 
-  const Template = getTemplate(templateId);
-
   const handleShare = () => {
     const url = generateShareUrl(data, templateId);
     setShareUrl(url);
@@ -42,72 +42,57 @@ export default function PreviewContent() {
       <DocumentTitle name={data.personalInfo.name} title={data.personalInfo.title} />
 
       {/* Toolbar - hidden in print */}
-      <div className="no-print" style={{
-        display: 'flex',
-        gap: '8px',
-        padding: '12px 20px',
-        borderBottom: '1px solid #e5e8ee',
-        background: '#fafbfc',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-      }}>
-        <PrintButton />
-        {resumeId && (
-          <button onClick={() => router.push(`/editor?id=${resumeId}`)} style={toolbarButtonStyle}>
-            Edit
+      <div className={toolbarStyles.toolbar}>
+        <div className={toolbarStyles.toolbarLeft}>
+          <PrintButton />
+          {resumeId && (
+            <button
+              onClick={() => router.push(`/editor?id=${resumeId}`)}
+              className={`${toolbarStyles.button} ${toolbarStyles.buttonPrimary}`}
+            >
+              <svg className={toolbarStyles.icon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              Edit
+            </button>
+          )}
+          <button
+            onClick={handleShare}
+            className={`${toolbarStyles.button} ${toolbarStyles.buttonSecondary}`}
+          >
+            <svg className={toolbarStyles.icon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+            </svg>
+            Public Share
           </button>
-        )}
-        <button onClick={handleShare} style={toolbarButtonStyle}>
-          Public Share
-        </button>
-        <label style={{ marginLeft: 'auto', fontSize: '13px', color: '#596375', display: 'flex', alignItems: 'center', gap: '6px' }}>
-          Template:
-          <select value={templateId} onChange={(e) => setTemplateId(e.target.value)} style={{ padding: '4px 8px', borderRadius: '4px', border: '1px solid #d8dde6', fontSize: '13px' }}>
-            {TEMPLATE_OPTIONS.map((opt) => <option key={opt.id} value={opt.id}>{opt.name}</option>)}
-          </select>
-        </label>
+        </div>
+        <div className={toolbarStyles.toolbarRight}>
+          <div className={toolbarStyles.templateSelector}>
+            Template:
+            <select value={templateId} onChange={(e) => setTemplateId(e.target.value)}>
+              {TEMPLATE_OPTIONS.map((opt) => <option key={opt.id} value={opt.id}>{opt.name}</option>)}
+            </select>
+          </div>
+        </div>
       </div>
 
       {shareUrl && (
-        <div className="no-print" style={{ padding: '10px 20px', background: '#f0fdf4', borderBottom: '1px solid #bbf7d0', fontSize: '13px', color: '#166534' }}>
+        <div className={`${styles.successMessage} ${styles.hidePrint}`}>
           Public Share link copied to clipboard!
         </div>
       )}
 
       {/* A4 paper simulation - matches print output exactly */}
-      <div className="no-print" style={{
-        background: '#e8eaed',
-        minHeight: 'calc(100vh - 100px)',
-        padding: '32px 0',
-        display: 'flex',
-        justifyContent: 'center',
-      }}>
-        <div className="print-preview-page" style={{
-          width: '210mm',
-          minHeight: '297mm',
-          background: '#fff',
-          boxShadow: '0 2px 16px rgba(0,0,0,0.12)',
-          padding: '14mm 12mm',
-          boxSizing: 'border-box',
-        }}>
-          <Template data={data} />
+      <div className={styles.container}>
+        <div className={styles.paperPreview}>
+          {React.createElement(getTemplate(templateId), { data })}
         </div>
       </div>
 
       {/* Actual content for print - hidden on screen, shown in print */}
       <div className="print-only">
-        <Template data={data} />
+        {React.createElement(getTemplate(templateId), { data })}
       </div>
     </>
   );
 }
-
-const toolbarButtonStyle: React.CSSProperties = {
-  padding: '8px 14px',
-  borderRadius: '6px',
-  border: '1px solid #d8dde6',
-  background: '#fff',
-  color: '#333',
-  fontSize: '13px',
-  cursor: 'pointer',
-};

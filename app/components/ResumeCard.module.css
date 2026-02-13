@@ -1,0 +1,108 @@
+/* =========================================================
+   RESUME CARD STYLES — Single resume card component
+   ========================================================= */
+
+/* REACT CONCEPT: CSS Modules
+   - Styles are scoped to this component only
+   - className={styles.card} imports the .card class
+   - Prevents style conflicts with other components
+   - Standard in Next.js and React projects
+   ========================================================= */
+
+/* Card container */
+.card {
+  border: 1px solid #e5e8ee;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  background: #fff;
+}
+
+/* Hover state - shows elevation */
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: #b0b8c9;
+}
+
+/* Card title - resume name */
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: #222b38;
+}
+
+/* Person info line - name and job title */
+.personInfo {
+  font-size: 13px;
+  color: #596375;
+  margin: 0 0 4px;
+}
+
+/* Last updated timestamp */
+.updatedTime {
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 0 0 14px;
+}
+
+/* Button container - flexbox for responsive wrapping */
+.actionButtonsContainer {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Action button base styles - common to all buttons */
+.actionButton {
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid #e5e8ee;
+  background: #fafbfc;
+  color: #596375;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.actionButton:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+/* Edit button - primary action (blue) */
+.editButton {
+  background: #1a56db;
+  color: #fff;
+  border: 1px solid #1a56db;
+}
+
+.editButton:hover {
+  background: #1e40af;
+  border-color: #1e40af;
+}
+
+/* Preview button - secondary action (green) */
+.previewButton {
+  background: #059669;
+  color: #fff;
+  border: 1px solid #059669;
+}
+
+.previewButton:hover {
+  background: #047857;
+  border-color: #047857;
+}
+
+/* Delete button - destructive action (red) */
+.deleteButton {
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.deleteButton:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+}

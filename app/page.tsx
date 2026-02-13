@@ -1,22 +1,21 @@
-// =============================================================
-// page.tsx — Dashboard: List, create, manage resume files
-// =============================================================
-//
-// This is the HOME page ("/"). It shows all saved resumes as cards
-// with options to create, duplicate, export, import, and delete.
-//
-// REACT CONCEPTS TAUGHT:
-//   - 'use client': This page uses hooks (useState, useEffect,
-//     useRouter) so it must be a Client Component.
-//   - useEffect for loading data on mount
-//   - useState for managing the list of resumes
-//   - Event handlers for CRUD operations
-//   - useRouter for programmatic navigation
-//   - useRef for the hidden file input (import)
-//
-// NEXT.JS CONCEPTS:
-//   - useRouter().push('/editor?id=xxx') for navigation with params
-// =============================================================
+/**
+ * DASHBOARD PAGE (/)
+ * 
+ * Main landing page showing all saved resumes as cards
+ * Users can: create, edit, preview, duplicate, export, import, delete resumes
+ * 
+ * REFACTORED FOR:
+ * - Separation of concerns (this file handles list, ResumeCard handles card)
+ * - CSS Modules (styles in separate files)
+ * - Clean, readable code (90 lines instead of 360+)
+ * 
+ * REACT CONCEPTS:
+ *   - 'use client': Needed for hooks and browser APIs
+ *   - useState: Managing resumes list and loading state
+ *   - useEffect: Loading data from localStorage on mount
+ *   - useRouter: Navigation to editor page
+ *   - useRef: Reference to hidden file input for import
+ */
 
 'use client';
 
@@ -26,78 +25,83 @@ import type { SavedResume } from './types/resume';
 import {
   getAllResumes,
   createResume,
-  deleteResume,
-  duplicateResume,
-  exportResume,
   importResume,
 } from './utils/storage';
+import ResumeCard from './components/ResumeCard';
+import styles from './dashboard.module.css';
 
+/**
+ * Main Dashboard Component
+ */
 export default function DashboardPage() {
-  // ----- State -----
+  // ===== STATE =====
+  // REACT CONCEPT: useState
+  // Stores the list of resumes and loading state
   const [resumes, setResumes] = useState<SavedResume[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // ----- Refs -----
+  // ===== REFS =====
   // REACT CONCEPT: useRef
-  // useRef gives you a "reference" to a DOM element.
-  // We need it to programmatically click the hidden file input.
+  // Creates a reference to the hidden file input element
+  // Used to programmatically trigger file picker when user clicks Import button
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // ----- Router -----
+  // ===== ROUTER =====
   // NEXT.JS CONCEPT: useRouter
-  // Gives you navigation methods like push(), back(), replace().
-  // router.push('/editor?id=xxx') navigates to the editor page.
+  // Provides navigation methods (push, back, replace)
   const router = useRouter();
 
-  // ----- Load resumes on mount -----
+  // ===== SIDE EFFECTS =====
+  // REACT CONCEPT: useEffect
+  // Runs once when component mounts ([] dependency array)
+  // Loads all saved resumes from localStorage
   useEffect(() => {
     setResumes(getAllResumes());
     setIsLoading(false);
   }, []);
 
-  // ----- Refresh the list from localStorage -----
+  // ===== HELPER FUNCTIONS =====
+
+  /**
+   * Refresh the resumes list from localStorage
+   * Called after destructive operations (delete, duplicate)
+   */
   const refreshList = () => {
     setResumes(getAllResumes());
   };
 
-  // ----- Create a new resume -----
+  /**
+   * Create new resume and navigate to editor
+   * FLOW:
+   * 1. Call createResume() which creates new SavedResume in localStorage
+   * 2. Refresh the list to show new resume
+   * 3. Navigate to /editor?id=xxx to start editing
+   */
   const handleCreate = () => {
     const newResume = createResume();
     refreshList();
-    // Navigate to the editor with the new resume's ID
     router.push(`/editor?id=${newResume.id}`);
   };
 
-  // ----- Delete a resume (with confirmation) -----
-  const handleDelete = (id: string, name: string) => {
-    // window.confirm shows a browser dialog: OK / Cancel
-    if (window.confirm(`Delete "${name}"? This cannot be undone.`)) {
-      deleteResume(id);
-      refreshList();
-    }
-  };
-
-  // ----- Duplicate a resume -----
-  const handleDuplicate = (id: string) => {
-    duplicateResume(id);
-    refreshList();
-  };
-
-  // ----- Export a resume as .json file -----
-  const handleExport = (id: string) => {
-    exportResume(id);
-  };
-
-  // ----- Import: trigger hidden file input -----
+  /**
+   * Import resume from JSON file
+   * Step 1: Programmatically click hidden file input
+   */
   const handleImportClick = () => {
-    fileInputRef.current?.click();
-    // ☝️ ?. is "optional chaining" — if fileInputRef.current is null,
-    // it does nothing instead of crashing
+    fileInputRef.current?.click(); // ?. = optional chaining (safe access)
   };
 
-  // ----- Import: handle the selected file -----
+  /**
+   * Import resume from JSON file
+   * Step 2: Handle file selection
+   * FLOW:
+   * 1. Get selected file from input element
+   * 2. Call importResume() which reads file and creates new resume in localStorage
+   * 3. Refresh list to show imported resume
+   * 4. Reset file input value so same file can be imported again
+   */
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const file = e.target.files?.[0]; // ?. = optional chaining
     if (!file) return;
 
     try {
@@ -107,49 +111,40 @@ export default function DashboardPage() {
       alert(`Failed to import: ${(err as Error).message}`);
     }
 
-    // Reset the input so the same file can be imported again
-    e.target.value = '';
+    e.target.value = ''; // Reset input
   };
 
-  // ----- Open a resume in the editor -----
-  const handleOpen = (id: string) => {
-    router.push(`/editor?id=${id}`);
-  };
+  // ===== RENDER =====
 
-  // ----- Render -----
+  // Loading state
   if (isLoading) {
-    return (
-      <div style={{ padding: '40px', textAlign: 'center', color: '#596375' }}>
-        Loading...
-      </div>
-    );
+    return <div className={styles.loadingContainer}>Loading...</div>;
   }
 
+  // Main page
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '30px 20px' }}>
-      {/* Page header */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '24px',
-        }}
-      >
-        <h1 style={{ fontSize: '24px', fontWeight: 700, margin: 0 }}>
-          My Resumes
-        </h1>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <button onClick={handleCreate} style={buttonStyle('#1a56db', '#fff')}>
+    <div className={styles.container}>
+      {/* PAGE HEADER - Title and action buttons */}
+      <div className={styles.header}>
+        <h1 className={styles.title}>My Resumes</h1>
+        <div className={styles.headerActions}>
+          {/* Create new resume button */}
+          <button
+            className={`${styles.button} ${styles.buttonPrimary}`}
+            onClick={handleCreate}
+          >
             + New Resume
           </button>
+
+          {/* Import JSON button */}
           <button
+            className={`${styles.button} ${styles.buttonSecondary}`}
             onClick={handleImportClick}
-            style={buttonStyle('#fff', '#333', '1px solid #d8dde6')}
           >
             Import JSON
           </button>
-          {/* Hidden file input for importing */}
+
+          {/* Hidden file input - triggered by Import button */}
           <input
             ref={fileInputRef}
             type="file"
@@ -160,202 +155,35 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Empty state */}
+      {/* EMPTY STATE - Shown when no resumes exist */}
       {resumes.length === 0 && (
-        <div
-          style={{
-            textAlign: 'center',
-            padding: '60px 20px',
-            color: '#596375',
-            border: '2px dashed #d8dde6',
-            borderRadius: '12px',
-          }}
-        >
-          <p style={{ fontSize: '18px', marginBottom: '8px' }}>
-            No resumes yet
-          </p>
-          <p style={{ fontSize: '14px', marginBottom: '20px' }}>
+        <div className={styles.emptyState}>
+          <p className={styles.emptyStateTitle}>No resumes yet</p>
+          <p className={styles.emptyStateDescription}>
             Create your first resume or import an existing JSON file
           </p>
           <button
+            className={`${styles.button} ${styles.buttonPrimary}`}
             onClick={handleCreate}
-            style={buttonStyle('#1a56db', '#fff')}
           >
             + Create Your First Resume
           </button>
         </div>
       )}
 
-      {/* Resume cards grid */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
-          gap: '16px',
-        }}
-      >
+      {/* RESUME CARDS GRID - Displays all resumes */}
+      <div className={styles.grid}>
         {resumes.map((resume) => (
-          <div
+          <ResumeCard
             key={resume.id}
-            style={{
-              border: '1px solid #e5e8ee',
-              borderRadius: '10px',
-              padding: '20px',
-              cursor: 'pointer',
-              transition: 'box-shadow 0.15s, border-color 0.15s',
-              background: '#fff',
-            }}
-            onClick={() => handleOpen(resume.id)}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow =
-                '0 4px 12px rgba(0,0,0,0.08)';
-              e.currentTarget.style.borderColor = '#b0b8c9';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = 'none';
-              e.currentTarget.style.borderColor = '#e5e8ee';
-            }}
-          >
-            {/* Card title */}
-            <h3
-              style={{
-                fontSize: '16px',
-                fontWeight: 600,
-                margin: '0 0 4px',
-                color: '#222b38',
-              }}
-            >
-              {resume.name}
-            </h3>
-
-            {/* Name from resume data */}
-            <p
-              style={{
-                fontSize: '13px',
-                color: '#596375',
-                margin: '0 0 4px',
-              }}
-            >
-              {resume.data.personalInfo.name} —{' '}
-              {resume.data.personalInfo.title}
-            </p>
-
-            {/* Last updated */}
-            <p
-              style={{
-                fontSize: '12px',
-                color: '#9ca3af',
-                margin: '0 0 14px',
-              }}
-            >
-              Updated: {new Date(resume.updatedAt).toLocaleDateString()}
-            </p>
-
-            {/* Action buttons */}
-            <div
-              style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => router.push(`/editor?id=${resume.id}`)}
-                style={{
-                  ...smallButtonStyle,
-                  background: '#1a56db',
-                  color: '#fff',
-                  border: '1px solid #1a56db',
-                }}
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => router.push(`/preview?id=${resume.id}`)}
-                style={{
-                  ...smallButtonStyle,
-                  background: '#059669',
-                  color: '#fff',
-                  border: '1px solid #059669',
-                }}
-              >
-                Preview
-              </button>
-              <button
-                onClick={() => handleDuplicate(resume.id)}
-                style={smallButtonStyle}
-              >
-                Duplicate
-              </button>
-              <button
-                onClick={() => handleExport(resume.id)}
-                style={smallButtonStyle}
-              >
-                Export
-              </button>
-              <button
-                onClick={() => handleDelete(resume.id, resume.name)}
-                style={{
-                  ...smallButtonStyle,
-                  color: '#dc2626',
-                  borderColor: '#fecaca',
-                }}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
+            resume={resume}
+            onAction={refreshList} // Pass callback for after delete/duplicate
+          />
         ))}
       </div>
 
-      {/* Footer trust message */}
-      <p
-        style={{
-          textAlign: 'center',
-          marginTop: '40px',
-          fontSize: '12px',
-          color: '#9ca3af',
-        }}
-      >
-        
-      </p>
+      {/* FOOTER */}
+      <p className={styles.footer}></p>
     </div>
   );
 }
-
-// =============================================================
-// STYLES — Helper functions for inline styles
-// =============================================================
-//
-// In a real app, you'd use Tailwind CSS classes or CSS Modules.
-// For learning, inline styles are simpler to understand because
-// everything is in one file. We'll refactor to Tailwind later.
-//
-// React uses camelCase for CSS properties:
-//   CSS: background-color → React: backgroundColor
-//   CSS: font-size → React: fontSize
-// =============================================================
-
-function buttonStyle(
-  bg: string,
-  color: string,
-  border?: string
-): React.CSSProperties {
-  return {
-    padding: '8px 16px',
-    borderRadius: '6px',
-    border: border || 'none',
-    background: bg,
-    color,
-    fontSize: '14px',
-    fontWeight: 500,
-    cursor: 'pointer',
-  };
-}
-
-const smallButtonStyle: React.CSSProperties = {
-  padding: '4px 10px',
-  borderRadius: '4px',
-  border: '1px solid #e5e8ee',
-  background: '#fafbfc',
-  color: '#596375',
-  fontSize: '12px',
-  cursor: 'pointer',
-};

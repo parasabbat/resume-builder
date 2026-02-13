@@ -1,0 +1,320 @@
+/* =========================================================
+   EDITOR FORM LAYOUT STYLES
+   ========================================================= */
+
+/* REACT CONCEPT: CSS Modules
+   - Styles are scoped to editor components
+   - Prevents conflicts with other parts of app
+   - Organized by component type (form, inputs)
+   ========================================================= */
+
+/* Main editor container - two-column layout */
+.editorContainer {
+  display: flex;
+  height: calc(100vh - 90px);
+  background: #fff;
+}
+
+/* Left panel - form inputs */
+.formPanel {
+  flex: 1 1 55%;
+  overflow-y: auto;
+  padding: 20px 24px;
+  border-right: 1px solid #e5e8ee;
+  background: #fff;
+}
+
+/* Right panel - JSON preview */
+.previewPanel {
+  flex: 1 1 45%;
+  overflow-y: auto;
+  padding: 20px;
+  background: #f8f9fb;
+  border-left: 1px solid #e5e8ee;
+  color: #222b38;
+  font-family: '"Fira Code", "Cascadia Code", monospace';
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Form section wrapper */
+.formSection {
+  margin-bottom: 20px;
+}
+
+/* Resume name input area */
+.resumeNameContainer {
+  margin-bottom: 20px;
+}
+
+/* Resume name label */
+.resumeNameLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #596375;
+  margin-bottom: 4px;
+}
+
+/* Resume name input */
+.resumeNameInput {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #d8dde6;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.resumeNameInput:focus {
+  border-color: #1a56db;
+  box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.1);
+}
+
+/* Save status indicator */
+.saveStatus {
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.saveStatus.saved {
+  color: #16a34a;
+}
+
+.saveStatus.unsaved {
+  color: #d97706;
+}
+
+.saveStatus.saving {
+  color: #596375;
+}
+
+/* Bottom action buttons */
+.formActions {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e8ee;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Share URL display area */
+.shareUrlContainer {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f0fdf4;
+  border-radius: 8px;
+  border: 1px solid #bbf7d0;
+}
+
+.shareUrlContainer strong {
+  display: block;
+  font-size: 12px;
+  color: #166534;
+  margin-bottom: 6px;
+}
+
+.shareUrlContainer code {
+  display: block;
+  font-size: 11px;
+  color: #596375;
+  word-break: break-all;
+  font-family: monospace;
+  overflow-wrap: break-word;
+}
+
+.shareUrlWarning {
+  font-size: 11px;
+  color: #d97706;
+  margin-top: 6px;
+}
+
+/* Spacer for bottom padding */
+.formBottom {
+  height: 40px;
+}
+
+/* Nested form (work experience, education, projects) */
+.nestedForm {
+  padding: 14px;
+  margin-bottom: 12px;
+  border: 1px solid #e5e8ee;
+  border-radius: 8px;
+  background: #fafbfc;
+}
+
+.nestedFormHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e8ee;
+}
+
+.nestedFormTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #596375;
+  margin: 0;
+}
+
+/* Array item add button */
+.addItemButton {
+  width: 100%;
+  padding: 8px;
+  border: 2px dashed #d8dde6;
+  border-radius: 6px;
+  background: none;
+  color: #596375;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 4px;
+}
+
+.addItemButton:hover {
+  border-color: #b0b8c9;
+  color: #222b38;
+  background: #f9fafb;
+}
+
+.addItemButton:active {
+  border-color: #8b94a5;
+}
+
+/* Remove/delete button inside nested forms */
+.removeButton {
+  background: none;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.removeButton:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+/* Button styles */
+.button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.buttonPrimary {
+  background: #1a56db;
+  color: #fff;
+}
+
+.buttonPrimary:hover {
+  background: #1e40af;
+}
+
+.buttonSecondary {
+  background: #059669;
+  color: #fff;
+}
+
+.buttonSecondary:hover {
+  background: #047857;
+}
+
+/* JSON preview header */
+.previewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.previewLabel {
+  color: #9ca3af;
+  font-size: 11px;
+}
+
+.copyJsonButton {
+  background: #fff;
+  border: 1px solid #d8dde6;
+  color: #596375;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copyJsonButton:hover {
+  background: #f9fafb;
+  border-color: #b0b8c9;
+}
+
+/* JSON preview content */
+.jsonPreview {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  color: #222b38;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .editorContainer {
+    flex-direction: column;
+  }
+
+  .formPanel {
+    flex: 1 1 50%;
+    border-right: none;
+    border-bottom: 1px solid #e5e8ee;
+  }
+
+  .previewPanel {
+    flex: 1 1 50%;
+    border-left: none;
+    border-top: 1px solid #e5e8ee;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .editorContainer {
+    height: auto;
+    min-height: calc(100vh - 90px);
+  }
+
+  .formPanel {
+    padding: 16px;
+  }
+
+  .previewPanel {
+    padding: 16px;
+  }
+
+  .formActions {
+    flex-direction: column;
+  }
+
+  .formActions .button {
+    width: 100%;
+  }
+}

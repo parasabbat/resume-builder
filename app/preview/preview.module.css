@@ -1,0 +1,88 @@
+/* =========================================================
+   PREVIEW PAGE LAYOUT STYLES
+   ========================================================= */
+
+/* REACT CONCEPT: CSS Modules
+   - Scoped to this component only
+   - Prevents style conflicts
+   - Cleaner JSX without inline styles
+   ========================================================= */
+
+/* Main container wrapper */
+.container {
+  background: #e8eaed;
+  min-height: calc(100vh - 100px);
+  padding: 32px 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* A4 paper simulation */
+.paperPreview {
+  width: 210mm;
+  min-height: 297mm;
+  background: #fff;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+  padding: 14mm 12mm;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  /* Prevents paper from shrinking below 210mm width */
+}
+
+/* Success message - share link copied */
+.successMessage {
+  padding: 10px 20px;
+  background: #f0fdf4;
+  border-bottom: 1px solid #bbf7d0;
+  font-size: 13px;
+  color: #166534;
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Slide down animation for success message */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hidden in print view */
+.hidePrint {
+  display: block; /* Default display, print styles will override */
+}
+
+/* Print media queries - for print-to-PDF output */
+@media print {
+  .container {
+    background: #fff;
+    padding: 0;
+    min-height: auto;
+  }
+
+  .paperPreview {
+    width: 100%;
+    min-height: auto;
+    box-shadow: none;
+    padding: 14mm 12mm;
+    page-break-after: always;
+  }
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px 0;
+  }
+
+  .paperPreview {
+    width: calc(100% - 32px);
+    margin: 0 16px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
+  }
+}
